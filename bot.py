@@ -9,25 +9,30 @@ load_dotenv()
 
 bot = commands.Bot(command_prefix='!')
 
+# Sends a message to the console if the bot successfully connects to Discord
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
+# Sends a general greeting or a personal one to a specified name or user
 @bot.command()
 async def greet(ctx, name=''):
     if (name == ''):
-        await ctx.send('Hello there!')
+        await ctx.send('Hi there!')
     else:
-        await ctx.send('Hello ' + name + '!')
+        await ctx.send('Hi ' + name + '!')
 
+# Simply adds two numbers together
 @bot.command()
 async def add(ctx, num1:int, num2:int):
     await ctx.reply(num1 + num2)
 
+# Just a test subroutine to show alternative commands to the subroutine signature name
 @bot.command(name = 'alternative_name')
 async def testing(ctx, num1:int, num2:int):
     await ctx.reply(num1 + num2)
 
+# Runs the bot with the appropriate Discord bot token
 bot.run(getenv('Discord_Bot_Token'))
 
 
