@@ -1,5 +1,3 @@
-# Tutorial link: https://www.youtube.com/watch?v=T5moR5gBlbM for starting out the Python Bot
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
