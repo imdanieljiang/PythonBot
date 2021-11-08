@@ -1,8 +1,11 @@
 # PythonBot
 
-## This Discord bot was created using Python as a side-project for my frequent usage of Discord
+## A side-project Discord bot created for my frequent usage of Discord
 
 ### Current features:
+- Displays server rules
+  - Displays all rules
+  - Displays specific rules
 - Command that greets users
 - Moderation commands
   - Muting/unmuting members
