@@ -11,3 +11,5 @@
   - Muting/unmuting members
   - Kicking members
   - Banning/unbanning members
+- Auto-moderation
+  - Message is automatically deleted if it includes a filtered word
