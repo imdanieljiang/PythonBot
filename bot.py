@@ -1,20 +1,66 @@
 from bisect import insort
 import discord
+import json
 from discord.ext import commands
 from dotenv import load_dotenv
 from os import getenv
 
 load_dotenv()
 
-# Bot's command prefix
-bot = commands.Bot(command_prefix = '!')
+#------------------------------Server Custom Prefix Command-----------------------------------------
 
-#---------------------------------Bot Start Up Message-------------------------------------
+# Gets the bot command prefix from the .json file
+def get_prefix(bot, message):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    return prefixes[str(message.guild.id)]
+
+# Bot's command prefix
+bot = commands.Bot(command_prefix = get_prefix)
+
+# Sets the default prefix for the bot command upon joining the server
+@bot.event
+async def on_guild_join(guild):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    prefixes[str(guild.id)] = '!'
+
+    with open('prefixes.json', 'w') as f:
+        json.dump(prefixes, f)
+
+# Changes the prefix for the bot commands
+# Only allows those with administrator permissions to change the prefix
+@bot.command()
+@commands.has_permissions(administrator = True)
+async def changeprefix(ctx, prefix):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    prefixes[str(ctx.guild.id)] = prefix
+
+    with open('prefixes.json', 'w') as f:
+        json.dump(prefixes, f)
+
+    await ctx.send(f'The command prefix is now {prefix}')
+
+#-----------------------------------Bot Start Up Message-------------------------------------------
 
 # Sends a message to the console if the bot successfully connects to Discord
+# Stores the server ID and the respective set prefix command for it in the .json file
 @bot.event
 async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
+    for guild in bot.guilds:
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+
+        prefixes[str(guild.id)] = '!'
+
+        with open('prefixes.json', 'w') as f:
+            json.dump(prefixes, f)
+
+        print(f'{bot.user} has connected to {guild.name}!')
 
 #------------------------------Rules for the Discord Server----------------------------------------
 
@@ -47,7 +93,6 @@ filtered_words_file.close()
 
 # Ensures the bot does not respond to its own messages
 # Deletes the message if the message contains a word from the list of filtered words
-# Allows members to use the server emojis without need Discord Nitro
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -55,13 +100,26 @@ async def on_message(message):
     for word in list_of_filtered_words:
         if (word in message.content):
             await message.delete()
-    if ':' == message.content[0] and ':' == message.content[-1]:
-        emoji_name = message.content[1:-1]
-        for emoji in message.guild.emojis:
-            if emoji_name == emoji.name:
-                await message.channel.send(str(emoji))
-                await message.delete()
-                break
+
+    # If the bot is mentioned, the bot will say its command prefix
+    try:
+        if message.mentions[0] == bot.user:
+            with open('prefixes.json', 'r') as f:
+                prefixes = json.load(f)
+        
+            prefix = prefixes[str(message.guild.id)]
+            await message.channel.send(f'The bot command prefix for this server is {prefix}')
+    except:
+        pass
+
+    # Allows members to use the server emojis without need Discord Nitro
+    # if ':' == message.content[0] and ':' == message.content[-1]:
+    #     emoji_name = message.content[1:-1]
+    #     for emoji in message.guild.emojis:
+    #         if emoji_name == emoji.name:
+    #             await message.channel.send(str(emoji))
+    #             await message.delete()
+    #             break
 
     await bot.process_commands(message)
 

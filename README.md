@@ -18,3 +18,6 @@
 - Creates embeded polls
   - Currently only allows two options
 - Displays user information
+- Customizable server specific bot command prefix
+  - Members with administrator permissions can change the bot command prefix
+  - The bot command prefix can be unique to each server
