@@ -1,3 +1,5 @@
+# API: https://discordpy.readthedocs.io/en/latest/api.html
+
 from bisect import insort
 import discord
 import json
