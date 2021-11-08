@@ -12,4 +12,4 @@
   - Kicking members
   - Banning/unbanning members
 - Auto-moderation
-  - Message is deleted if it includes a filtered word
+  - Message is automatically deleted if it includes a filtered word
