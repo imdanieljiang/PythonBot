@@ -5,14 +5,17 @@ from os import getenv
 
 load_dotenv()
 
+# Bot's command prefix
 bot = commands.Bot(command_prefix = '!')
+
+#---------------------------------Bot Start Up Message-------------------------------------
 
 # Sends a message to the console if the bot successfully connects to Discord
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
-#--------------------------------------------------------------------------------------------------
+#------------------------------Rules for the Discord Server----------------------------------------
 
 # Reading from the rules.txt file to make a list of rules
 rules_file = open('rules.txt', 'r')
@@ -34,7 +37,22 @@ async def rule(ctx, *, num):
     else:
         await ctx.send('Rule ' + num + ' doesn\'t exist')
 
-#--------------------------------------------------------------------------------------------------
+#----------------------------Auto Moderation w/ Filtered Words-------------------------------------
+
+# Reads from the filtered_words.txt file to make a list of filtered words
+filtered_words_file = open('filtered_words.txt', 'r')
+list_of_filtered_words = filtered_words_file.read().splitlines()
+filtered_words_file.close()
+
+# Deletes the message if the message contains a word from the list of filtered words
+@bot.event
+async def on_message(message):
+    for word in list_of_filtered_words:
+        if (word in message.content):
+            await message.delete()
+    await bot.process_commands(message)
+
+#------------------------------------Main Bot Commands---------------------------------------------
 
 # Sends a general greeting or a personal one to a specified name or user
 @bot.command()
@@ -118,7 +136,7 @@ async def unban(ctx, *, member):
             return
     await ctx.send(member + ' was not found')
 
-#------------------------------------Discord Bot Start Up------------------------------------------
+#--------------------------------------Bot Start Up------------------------------------------------
 
 # Runs the bot with the appropriate Discord bot token
 bot.run(getenv('Discord_Bot_Token'))
