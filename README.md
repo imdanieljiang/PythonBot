@@ -13,3 +13,8 @@
   - Banning/unbanning members
 - Auto-moderation
   - Message is automatically deleted if it includes a filtered word
+- Error handling
+  - Non-existent commands and missing arguments will be handled
+- Creates embeded polls
+  - Currently only allows two options
+- Displays user information

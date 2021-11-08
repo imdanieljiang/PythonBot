@@ -1,3 +1,4 @@
+from bisect import insort
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -44,12 +45,24 @@ filtered_words_file = open('filtered_words.txt', 'r')
 list_of_filtered_words = filtered_words_file.read().splitlines()
 filtered_words_file.close()
 
+# Ensures the bot does not respond to its own messages
 # Deletes the message if the message contains a word from the list of filtered words
+# Allows members to use the server emojis without need Discord Nitro
 @bot.event
 async def on_message(message):
+    if message.author == bot.user:
+        return
     for word in list_of_filtered_words:
         if (word in message.content):
             await message.delete()
+    if ':' == message.content[0] and ':' == message.content[-1]:
+        emoji_name = message.content[1:-1]
+        for emoji in message.guild.emojis:
+            if emoji_name == emoji.name:
+                await message.channel.send(str(emoji))
+                await message.delete()
+                break
+
     await bot.process_commands(message)
 
 #------------------------------------Main Bot Commands---------------------------------------------
@@ -71,6 +84,36 @@ async def add(ctx, num1:int, num2:int):
 @bot.command(name = 'alternative_name')
 async def testing(ctx, num1:int, num2:int):
     await ctx.reply(num1 + num2)
+
+#-----------------------------------Embeded Bot Commands-------------------------------------------
+
+# Embeded bot commands to show info about the member including their name, ID, avatar, and join date
+# Additionally shows who used the command/requested the information on the member
+@bot.command(aliases = ['user', 'info'])
+@commands.has_permissions(kick_members = True)
+async def whois(ctx, member:discord.Member):
+    embed = discord.Embed(title = member.name, description = member.mention, color = discord.Colour.red())
+    embed.add_field(name = 'ID', value = member.id, inline = True)
+    embed.add_field(name = 'Joined Server', value = member.joined_at, inline = True)
+    embed.set_thumbnail(url = member.avatar_url)
+    embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Requested by {ctx.author.name}')
+    await ctx.send(embed = embed)
+
+# Creates a poll given two options separated by 'or'
+# Limited to only two options (so far)
+@bot.command()
+async def poll(ctx, *, message):
+    channel = ctx.channel
+
+    op1, op2 = message.split('or')
+    text = f'1️⃣ {op1}\n2️⃣{op2}'
+
+    embed = discord.Embed(title = message, description = text, colour = discord.Colour.red())
+    embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Poll by {ctx.author.name}')
+    poll_message = await channel.send(embed = embed)
+    await ctx.message.delete()
+    await poll_message.add_reaction('1️⃣')
+    await poll_message.add_reaction('2️⃣')
 
 #------------------------------------Moderation Commands-------------------------------------------
 
@@ -105,7 +148,11 @@ async def unmute(ctx, member:discord.Member):
 @bot.command(aliases = ['k'])
 @commands.has_permissions(kick_members = True)
 async def kick(ctx, member:discord.Member, *, reason = 'No reason provided'):
-    await member.send('You have been kicked from the server because: ' + reason)
+    await ctx.send(member.name + ' has been kicked from the server because: ' + reason)
+    try:
+        await member.send('You have been kicked from the server because: ' + reason)
+    except:
+        await ctx.send('The member has their DMs closed')
     await member.kick(reason = reason)
 
 # Bans the member from the server
@@ -115,7 +162,10 @@ async def kick(ctx, member:discord.Member, *, reason = 'No reason provided'):
 @commands.has_permissions(ban_members = True)
 async def ban(ctx, member:discord.Member, *, reason = 'No reason provided'):
     await ctx.send(member.name + ' has been banned from the server because: ' + reason)
-    await member.send('You have been banned from the server because: ' + reason)
+    try:
+        await member.send('You have been banned from the server because: ' + reason)
+    except:
+        await ctx.send('The member has their DMs closed')
     await member.ban(reason = reason)
 
 # Unbans the member from the server
@@ -134,7 +184,29 @@ async def unban(ctx, *, member):
             await ctx.guild.unban(user)
             await ctx.send(member_name + ' has been unbanned')
             return
-    await ctx.send(member + ' was not found')
+    await ctx.send(member + ' was not found.')
+
+#--------------------------------------Error Handling----------------------------------------------
+
+# Catches potential errors and sends the appropriate handling message
+@bot.event
+async def on_command_error(ctx, error):
+    if (isinstance(error, commands.MissingPermissions)):
+        # await ctx.message.delete()
+        await ctx.send('You do not have the required permissions to do that')
+    elif (isinstance(error, commands.MissingRequiredArgument)):
+        # await ctx.message.delete()
+        await ctx.send('Please enter the missing arguments')
+    elif (isinstance(error, commands.CommandNotFound)):
+        # await ctx.message.delete()
+        await ctx.send('That command does not exist')
+    elif (isinstance(error, commands.MemberNotFound)):
+        # await ctx.message.delete()
+        await ctx.send('That member could not be found')
+    elif (isinstance(error, commands.BadArgument)):
+        await ctx.send('Please enter the correct parameter type')
+    else:
+        raise error
 
 #--------------------------------------Bot Start Up------------------------------------------------
 

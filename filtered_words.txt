@@ -1,4 +1,4 @@
-cat
-dog
-mouse
-rat
+octopus
+elephant
+kangaroo
+penguin
