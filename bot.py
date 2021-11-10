@@ -18,7 +18,7 @@ def get_prefix(bot, message):
     return prefixes[str(message.guild.id)]
 
 # The bot's command prefix
-bot = commands.Bot(command_prefix = get_prefix)
+bot = commands.Bot(command_prefix = get_prefix, description = 'A Discord bot made in Python!')
 
 # Sets the default server-specific prefix for the bot command on joining the server
 @bot.event

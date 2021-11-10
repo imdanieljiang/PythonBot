@@ -26,7 +26,6 @@ class Moderation(commands.Cog):
             return
         for word in self.filtered_words_list:
             if word in message.content:
-                # print('hi')
                 await message.delete()
 
         try:
