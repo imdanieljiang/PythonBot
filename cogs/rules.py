@@ -10,7 +10,7 @@ class Rules(commands.Cog):
         self.bot = bot
     
     # Reads from the 'rules.txt' file and make a list of rules
-    rules_file = open('rules.txt', 'r')
+    rules_file = open('./text_files/rules.txt', 'r')
     rules_list = rules_file.readlines()
     # Uncomment this to exclude '\n' characters
     # rules_list = rules_file.read().splitlines()

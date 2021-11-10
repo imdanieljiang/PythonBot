@@ -2,7 +2,7 @@ import discord
 import json
 from discord.errors import Forbidden
 from discord.ext import commands
-from discord.ext.commands.errors import CommandError, CommandInvokeError
+from discord.ext.commands.errors import BadArgument, CommandError, CommandInvokeError
 
 #----------------------------------------Moderation Commands---------------------------------------
 
@@ -13,7 +13,7 @@ class Moderation(commands.Cog):
         self.bot = bot
 
     # Reads from the filtered_words.txt file to create a list of filtered words
-    filtered_words_file = open('filtered_words.txt', 'r')
+    filtered_words_file = open('./text_files/filtered_words.txt', 'r')
     filtered_words_list = filtered_words_file.read().splitlines()
     filtered_words_file.close()
 
@@ -26,6 +26,7 @@ class Moderation(commands.Cog):
             return
         for word in self.filtered_words_list:
             if word in message.content:
+                # print('hi')
                 await message.delete()
 
         try:
@@ -44,7 +45,11 @@ class Moderation(commands.Cog):
     @commands.command(aliases = ['c'])
     @commands.has_permissions(manage_messages = True)
     async def clear(self, ctx, amount = 1):
-        await ctx.channel.purge(limit = amount + 1)
+        try:
+            await ctx.channel.purge(limit = amount + 1)
+        except:
+            await ctx.reply('Please only enter numbers greater than 1')
+        
     
     # Mutes the member in the server and gives the member a created 'muted' role
     # Only allows those with the 'kick_members' permissions to mute members
