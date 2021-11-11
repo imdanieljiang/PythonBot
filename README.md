@@ -2,6 +2,8 @@
 
 ## A side-project Discord bot created for my frequent usage of Discord
 
+### Please install the required dependencies in the requirements.txt file
+
 ### Current features:
 - Displays server rules
   - Displays all rules
