@@ -9,7 +9,9 @@ from dotenv import load_dotenv
 # Loads the environment variables
 load_dotenv()
 
+
 #-------------------------------Server-Specific Custom Prefix Command------------------------------
+
 
 # Gets the bot command prefix from the .json file
 def get_prefix(bot, message):
@@ -17,8 +19,10 @@ def get_prefix(bot, message):
         prefixes = json.load(file)
     return prefixes[str(message.guild.id)]
 
+
 # The bot's command prefix
 bot = commands.Bot(command_prefix = get_prefix, description = 'A Discord bot made in Python!')
+
 
 # Sets the default server-specific prefix for the bot command on joining the server
 @bot.event
@@ -31,6 +35,7 @@ async def on_guild_join(guild):
 
     with open('prefixes.json', 'w') as file:
         json.dump(prefixes, file)
+
 
 # Sets the prefix for the bot commands
 # Only allows those with administrator permissions to change the prefix
@@ -48,7 +53,9 @@ async def setprefix(ctx, prefix):
     
     await ctx.reply(f'The command prefix is now {prefix}')
 
+
 #-------------------------------------------Bot Start Up-------------------------------------------
+
 
 # Stores the server ID and the respective set prefix command for the server in the .json file
 # Prints a message to the console if the bot successfully connects to the Discord server
@@ -64,7 +71,9 @@ async def on_ready():
             json.dump(prefixes, file)
     print(f'{bot.user} has connected to {guild.name}!')
 
+
 #--------------------------------------Loading/Unloading Cogs--------------------------------------
+
 
 # Loads the cog .py file from the 'cogs' folder
 @bot.command()
@@ -75,6 +84,7 @@ async def load(ctx, extension):
     except ExtensionAlreadyLoaded:
         await ctx.reply('The extension has already been loaded')
 
+
 # Unloads the cog .py file from the 'cogs' folder
 @bot.command()
 async def unload(ctx, extension):
@@ -84,13 +94,16 @@ async def unload(ctx, extension):
     except ExtensionNotLoaded:
         await ctx.reply('The extension is already unloaded')
 
+
 # Looks for the appropriate cog .py file within the 'cogs' folder
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         # Splicing to get rid of the '.py' at the end of the file name
         bot.load_extension(f'cogs.{filename[:-3]}')
 
+
 #------------------------------------------Error Handling------------------------------------------
+
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -114,7 +127,9 @@ async def on_command_error(ctx, error):
     else:
         raise error
 
+
 #-------------------------------------------Bot Start Up-------------------------------------------
+
 
 # Runs the bot with the appropriate Discord bot token
 bot.run(os.getenv('Discord_Bot_Token'))

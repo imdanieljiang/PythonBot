@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
 
+
 #---------------------------------------General Embed Commands-------------------------------------
+
 
 class Embed(commands.Cog):
 
@@ -9,6 +11,7 @@ class Embed(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
+
     # Bot command that shows info about the member including their name, ID, avatar, and join date
     # Displays the info in an embed and shows who requested the command
     @commands.command(aliases = ['user', 'info'])
@@ -20,6 +23,7 @@ class Embed(commands.Cog):
         embed.set_thumbnail(url = member.avatar_url)
         embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Requested by {ctx.author.name}')
         await ctx.send(embed = embed)
+
 
     # Creates a poll given two options separated by 'or'
     # Limited to only two options (so far)
@@ -49,7 +53,9 @@ class Embed(commands.Cog):
         except:
             await ctx.reply('Please enter a question ending in \'?\' and between 2 to 10 options separated by \'or\'')
 
+
 #----------------------------------------Connect Cog to Bot----------------------------------------
+
 
 # Setup that allows us to connect the cog to the bot
 def setup(bot):

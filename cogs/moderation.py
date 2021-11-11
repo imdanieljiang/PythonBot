@@ -4,9 +4,12 @@ from discord.errors import Forbidden
 from discord.ext import commands
 from discord.ext.commands.errors import BadArgument, CommandError, CommandInvokeError
 
+
 #----------------------------------------Moderation Commands---------------------------------------
 
+
 class Moderation(commands.Cog):
+
 
     # Initialization that allows us to acces the bot within the cog
     def __init__(self, bot):
@@ -16,6 +19,7 @@ class Moderation(commands.Cog):
     filtered_words_file = open('./text_files/filtered_words.txt', 'r')
     filtered_words_list = filtered_words_file.read().splitlines()
     filtered_words_file.close()
+
 
     # Correct notation for events
     # Ensures the bot doesn't respond to its own messages
@@ -38,6 +42,7 @@ class Moderation(commands.Cog):
         except:
             pass
 
+
     # Correct notation for commands
     # Clears the latest 'amount' of messages incremented by one to include the bot's message
     # Only allows those with the 'manage_messages' permissions to clear messages
@@ -59,6 +64,7 @@ class Moderation(commands.Cog):
         await member.add_roles(muted_role)
         await ctx.send(f'{member.mention} has been muted')
 
+
     # Unmutes the member in the server and removes the 'muted' role
     # Only allows those with the 'kick_members' permissions to unmute members
     @commands.command(aliases = ['um'])
@@ -67,6 +73,7 @@ class Moderation(commands.Cog):
         muted_role = ctx.guild.get_role(907114788352569394) # 'Muted' role ID
         await member.remove_roles(muted_role)
         await ctx.send(f'{member.mention} has been unmuted')
+
 
     # Kicks the member from the server with a reason and DMs the kicked member
     # Only allows those with the 'kick_members' permissions to kick members
@@ -80,6 +87,7 @@ class Moderation(commands.Cog):
         except:
             await ctx.reply('We are unable to process this request at the time')
 
+
     # Bans the member from the server with a reason and DMs the banned member
     # Only allows those with the 'kick_members' permissions to ban members
     @commands.command(aliases = ['b'])
@@ -91,6 +99,7 @@ class Moderation(commands.Cog):
             await member.send(f'You have been banned from the server because: {reason}')
         except:
             await ctx.reply('We are unable to process this request at the time')        
+
 
     # Unbans the member from the server
     # Only allows those with the 'kick_members' permissions to unban members
@@ -112,7 +121,9 @@ class Moderation(commands.Cog):
         except ValueError:
             await ctx.reply('Please enter in the Username#ID format')
 
+
 #----------------------------------------Connect Cog to Bot----------------------------------------
+
 
 # Setup that allows us to connect the cog to the bot
 def setup(bot):
