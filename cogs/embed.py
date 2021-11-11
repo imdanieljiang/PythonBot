@@ -39,8 +39,7 @@ class Embed(commands.Cog):
             
             text = ''
             for o in range(len(options)):
-                text += f'{numbers[o]} {options[o]}'
-                text += '\n'
+                text += f'{numbers[o]} {options[o]}' + '\n'
 
             embed = discord.Embed(title = question, description = text, colour = discord.Colour.red())
             embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Poll by {ctx.author.name}')
