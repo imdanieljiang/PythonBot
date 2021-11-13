@@ -95,6 +95,13 @@ async def unload(ctx, extension):
         await ctx.reply('The extension is already unloaded')
 
 
+# Reloads the cog .py file from the 'cogs' folder
+@bot.command()
+async def reload(ctx, extension):
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
+
+
 # Looks for the appropriate cog .py file within the 'cogs' folder
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
