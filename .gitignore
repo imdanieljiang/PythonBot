@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Initialization file
-.ini
+# Initialization files
+*.ini

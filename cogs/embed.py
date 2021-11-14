@@ -21,7 +21,7 @@ class Embed(commands.Cog):
         embed.add_field(name = 'ID', value = member.id, inline = True)
         embed.add_field(name = 'Joined Server', value = member.joined_at, inline = True)
         embed.set_thumbnail(url = member.avatar_url)
-        embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Requested by {ctx.author.name}')
+        embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Requested by {ctx.author.display_name}')
         await ctx.send(embed = embed)
 
 
@@ -42,7 +42,7 @@ class Embed(commands.Cog):
                 text += f'{numbers[o]} {options[o]}' + '\n'
 
             embed = discord.Embed(title = question, description = text, colour = discord.Colour.red())
-            embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Poll by {ctx.author.name}')
+            embed.set_footer(icon_url = ctx.author.avatar_url, text = f'Poll by {ctx.author.display_name}')
             poll_message = await channel.send(embed = embed)
             await ctx.message.delete()
             for o in range(len(options)):
