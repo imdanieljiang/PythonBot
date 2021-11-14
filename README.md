@@ -23,3 +23,5 @@
 - Customizable server specific bot command prefix
   - Members with administrator permissions can change the bot command prefix
   - The bot command prefix can be unique to each server
+- Pulls from Reddit's Python Reddit API Wrapper (PRAW) using async
+  - Grabs the hottest n number of posts from any s subreddit
