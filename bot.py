@@ -100,6 +100,7 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
+    await ctx.reply(f'Reloaded the {extension} extension')
 
 
 # Looks for the appropriate cog .py file within the 'cogs' folder
