@@ -1,8 +1,6 @@
 import discord
 import json
-from discord.errors import Forbidden
 from discord.ext import commands
-from discord.ext.commands.errors import BadArgument, CommandError, CommandInvokeError
 
 
 #----------------------------------------Moderation Commands---------------------------------------
