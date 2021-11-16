@@ -5,6 +5,8 @@
 ### Please install the required dependencies in the requirements.txt file
 
 ### Current features:
+- Pulls from Reddit's using the Python Reddit API Wrapper (PRAW) using async functions
+  - Grabs the hottest 'n' number of posts from any 's' subreddit
 - Displays server rules
   - Displays all rules
   - Displays specific rules
@@ -23,5 +25,3 @@
 - Customizable server specific bot command prefix
   - Members with administrator permissions can change the bot command prefix
   - The bot command prefix can be unique to each server
-- Pulls from Reddit's using the Python Reddit API Wrapper (PRAW) using async functions
-  - Grabs the hottest 'n' number of posts from any 's' subreddit
