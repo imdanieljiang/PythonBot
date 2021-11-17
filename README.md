@@ -15,6 +15,7 @@
 - Displays all server rules
   - ![Screen Shot 2021-11-17 at 1 06 42 AM](https://user-images.githubusercontent.com/83325543/142170810-3b8c095e-b5d9-4c33-930a-205baf49288b.png)
   - Displays specific rules
+  - ![Screen Shot 2021-11-17 at 1 10 28 AM](https://user-images.githubusercontent.com/83325543/142171026-f3519337-74b8-479b-bf67-ea513c55423f.png)
 - Command that greets users
 - Moderation commands
   - Muting/unmuting members
