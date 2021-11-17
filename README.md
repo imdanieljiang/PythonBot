@@ -23,8 +23,8 @@
   - Banning/unbanning members
 - Auto-moderation
   - Message is automatically deleted if it includes a filtered word
-- Creates embedded polls
-  - Currently only allows two options
+- Creates embedded polls (up to ten possible options)
+  - ![Screen Shot 2021-11-17 at 1 07 55 AM](https://user-images.githubusercontent.com/83325543/142171254-e9412ed8-9487-49eb-8de9-e97887fd269c.png)
 - Displays user information
 - Error handling
   - Non-existent commands and missing arguments will be handled
