@@ -10,6 +10,7 @@
   - ![Screen Shot 2021-11-17 at 1 03 15 AM](https://user-images.githubusercontent.com/83325543/142169963-4a5ae4bf-8ceb-492d-9096-58f3b99403d7.png)
 - Customizable server specific bot command prefix
   - Members with administrator permissions can change the bot command prefix
+  - ![Screen Shot 2021-11-17 at 1 06 13 AM](https://user-images.githubusercontent.com/83325543/142170604-1657b5f7-852d-4eda-a1e3-371881b3b377.png)
   - The bot command prefix can be unique to each server
 - Displays server rules
   - Displays all rules
