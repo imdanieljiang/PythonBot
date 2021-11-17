@@ -12,8 +12,8 @@
   - Members with administrator permissions can change the bot command prefix
   - ![Screen Shot 2021-11-17 at 1 06 13 AM](https://user-images.githubusercontent.com/83325543/142170604-1657b5f7-852d-4eda-a1e3-371881b3b377.png)
   - The bot command prefix can be unique to each server
-- Displays server rules
-  - Displays all rules
+- Displays all server rules
+  - ![Screen Shot 2021-11-17 at 1 06 42 AM](https://user-images.githubusercontent.com/83325543/142170810-3b8c095e-b5d9-4c33-930a-205baf49288b.png)
   - Displays specific rules
 - Command that greets users
 - Moderation commands
