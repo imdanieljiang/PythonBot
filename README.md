@@ -23,7 +23,7 @@
   - Banning/unbanning members
 - Auto-moderation
   - Message is automatically deleted if it includes a filtered word
-- Creates embeded polls
+- Creates embedded polls
   - Currently only allows two options
 - Displays user information
 - Error handling
