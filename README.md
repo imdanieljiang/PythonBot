@@ -5,7 +5,7 @@
 ### Please install the required dependencies in the requirements.txt file
 
 ### Current features:
-- Pulls from Reddit's using the Python Reddit API Wrapper (PRAW) using async functions
+- Pulls from the Reddit API using the Python Reddit API Wrapper (PRAW) using async functions
   - Grabs the hottest 'n' number of posts from any 's' subreddit
     > ![Screen Shot 2021-11-17 at 1 03 15 AM](https://user-images.githubusercontent.com/83325543/142169963-4a5ae4bf-8ceb-492d-9096-58f3b99403d7.png)
 - Customizable server specific bot command prefix
