@@ -39,7 +39,7 @@ async def on_guild_join(guild):
 
 # Sets the prefix for the bot commands
 # Only allows those with administrator permissions to change the prefix
-@bot.command(aliases = ['changeprefix'])
+@bot.command(aliases = ['changeprefix'], help = 'Sets the prefix for the server')
 @commands.has_permissions(administrator = True)
 async def setprefix(ctx, prefix):
     with open('prefixes.json', 'r') as file:
@@ -76,7 +76,7 @@ async def on_ready():
 
 
 # Loads the cog .py file from the 'cogs' folder
-@bot.command()
+@bot.command(help = 'Loads the specified cog extension')
 async def load(ctx, extension):
     try:
         bot.load_extension(f'cogs.{extension}')
@@ -86,7 +86,7 @@ async def load(ctx, extension):
 
 
 # Unloads the cog .py file from the 'cogs' folder
-@bot.command()
+@bot.command(help = 'Unloads the specified cog extension')
 async def unload(ctx, extension):
     try:
         bot.unload_extension(f'cogs.{extension}')
@@ -96,7 +96,7 @@ async def unload(ctx, extension):
 
 
 # Reloads the cog .py file from the 'cogs' folder
-@bot.command()
+@bot.command(help = 'Reloads the specified cog extension')
 async def reload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')

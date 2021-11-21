@@ -15,7 +15,8 @@ class Reddit(commands.Cog):
 
 
     # Command that pulls the top number of posts for that day in a specific subreddit community
-    @commands.command(aliases = ['rdt', 'r'])
+    @commands.command(aliases = ['rdt', 'r'],
+                      help = 'Shows the five hottest posts in the specified subreddit')
     async def reddit(self, ctx, sub = 'csmajors', num = 5):
 
         # Initializes the Python Reddit API Wrapper

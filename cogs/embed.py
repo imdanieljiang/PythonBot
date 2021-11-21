@@ -14,7 +14,8 @@ class Embed(commands.Cog):
 
     # Bot command that shows info about the member including their name, ID, avatar, and join date
     # Displays the info in an embed and shows who requested the command
-    @commands.command(aliases = ['user', 'info'])
+    @commands.command(aliases = ['user', 'info'],
+                      help = 'Displays information about a member')
     @commands.has_permissions(kick_members = True)
     async def whois(self, ctx, member:discord.Member):
         embed = discord.Embed(title = member.name, description = member.mention, color = discord.Color.red())
@@ -27,7 +28,7 @@ class Embed(commands.Cog):
 
     # Creates a poll given two options separated by 'or'
     # Limited to only two options (so far)
-    @commands.command()
+    @commands.command(help = 'Creates a poll of up to ten possible options')
     async def poll(self, ctx, *, message):
         channel = ctx.channel
         split = message.split('?')

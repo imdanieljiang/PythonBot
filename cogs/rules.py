@@ -22,13 +22,13 @@ class Rules(commands.Cog):
 
 
     # Sends the list of rules to the Discord server separated by newline characters '\n'
-    @commands.command()
+    @commands.command(help = 'Shows the list of rules for the server')
     async def rules(self, ctx):
         await ctx.send('\n'.join(self.rules_list))
     
 
     # Sends a specific rule to the Discord server
-    @commands.command()
+    @commands.command(help = 'Shows the specific rule number')
     async def rule(self, ctx, *, number):
         if int(number) >= 1 and int(number) <= len(self.rules_list) - 1:
             await ctx.send(self.rules_list[int(number)])

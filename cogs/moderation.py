@@ -44,7 +44,8 @@ class Moderation(commands.Cog):
     # Correct notation for commands
     # Clears the latest 'amount' of messages incremented by one to include the bot's message
     # Only allows those with the 'manage_messages' permissions to clear messages
-    @commands.command(aliases = ['c'])
+    @commands.command(aliases = ['c'],
+                      help = 'Clears the last n number of messages from the channel')
     @commands.has_permissions(manage_messages = True)
     async def clear(self, ctx, amount = 1):
         try:
@@ -55,7 +56,7 @@ class Moderation(commands.Cog):
     
     # Mutes the member in the server and gives the member a created 'muted' role
     # Only allows those with the 'kick_members' permissions to mute members
-    @commands.command(aliases = ['m'])
+    @commands.command(aliases = ['m'], help = 'Mutes a specific member with a muted role')
     @commands.has_permissions(kick_members = True)
     async def mute(self, ctx, member:discord.Member):
         muted_role = ctx.guild.get_role(907114788352569394) # 'Muted' role ID
@@ -65,7 +66,7 @@ class Moderation(commands.Cog):
 
     # Unmutes the member in the server and removes the 'muted' role
     # Only allows those with the 'kick_members' permissions to unmute members
-    @commands.command(aliases = ['um'])
+    @commands.command(aliases = ['um'], help = 'Unmutes a member and removes their muted rol')
     @commands.has_permissions(kick_members = True)
     async def unmute(self, ctx, member:discord.Member):
         muted_role = ctx.guild.get_role(907114788352569394) # 'Muted' role ID
@@ -75,7 +76,7 @@ class Moderation(commands.Cog):
 
     # Kicks the member from the server with a reason and DMs the kicked member
     # Only allows those with the 'kick_members' permissions to kick members
-    @commands.command(aliases = ['k'])
+    @commands.command(aliases = ['k'], help = 'Kicks the member')
     @commands.has_permissions(kick_members = True)
     async def kick(self, ctx, member:discord.Member, *, reason = 'No reason provided'):
         try:
@@ -88,7 +89,7 @@ class Moderation(commands.Cog):
 
     # Bans the member from the server with a reason and DMs the banned member
     # Only allows those with the 'kick_members' permissions to ban members
-    @commands.command(aliases = ['b'])
+    @commands.command(aliases = ['b'], help = 'Bans the member')
     @commands.has_permissions(kick_members = True)
     async def ban(self, ctx, member:discord.Member, *, reason = 'No reason provided'):
         try:
@@ -101,7 +102,7 @@ class Moderation(commands.Cog):
 
     # Unbans the member from the server
     # Only allows those with the 'kick_members' permissions to unban members
-    @commands.command(aliases = ['ub'])
+    @commands.command(aliases = ['ub'], help = 'Unbans the member')
     @commands.has_permissions(kick_members = True)
     async def unban(self, ctx, *, member):
         try:

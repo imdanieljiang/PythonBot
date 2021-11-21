@@ -14,7 +14,7 @@ class General(commands.Cog):
 
 
     # Sends a general greeting
-    @commands.command()
+    @commands.command(help = 'Gives a general greeting or greets a specified member')
     async def greet(self, ctx, name = ''):
         if (name == ''):
             await ctx.send('Hey there!')
@@ -23,7 +23,7 @@ class General(commands.Cog):
     
 
     # Adds numbers together using *args
-    @commands.command()
+    @commands.command(help = 'Adds numbers togethers')
     async def add(self, ctx, *values):
         try:
             sum = 0
