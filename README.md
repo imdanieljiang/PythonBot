@@ -10,6 +10,8 @@
     > ![Hottest Posts from Reddit API](https://user-images.githubusercontent.com/83325543/142169963-4a5ae4bf-8ceb-492d-9096-58f3b99403d7.png)
 - Pulls from the Yahoo Finance API to obtain stock information
     > ![Stock Information from Yahoo Finance API](https://user-images.githubusercontent.com/83325543/142755683-831bb542-33b6-4995-8ccf-5920c0c0b525.png)
+- Stores the number of messages sent for each member in the server and stores the count in a MongoDB database
+    > ![MongoDB Database](https://user-images.githubusercontent.com/83325543/142822981-abc21539-7c30-4cd0-8542-49fc83dbfcd7.png)
 - Customizable server specific bot command prefix
   - Members with administrator permissions can change the bot command prefix
     > ![Custom Command Prefix](https://user-images.githubusercontent.com/83325543/142170604-1657b5f7-852d-4eda-a1e3-371881b3b377.png)
