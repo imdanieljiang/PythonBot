@@ -1,6 +1,23 @@
 import discord
 import json
+import pymongo
+import os
+from pymongo import MongoClient
 from discord.ext import commands
+
+from dotenv import load_dotenv
+
+# Loads the environment variables
+load_dotenv()
+
+# Connects to the database cluster
+cluster = MongoClient(os.getenv('MongoDB_Connection_URL'))
+
+# The name of the database
+db = cluster['PythonBot']
+
+# The name of the collection
+collection = db['MessageRankings']
 
 
 #----------------------------------------Moderation Commands---------------------------------------
@@ -22,8 +39,31 @@ class Moderation(commands.Cog):
     # Correct notation for events
     # Ensures the bot doesn't respond to its own messages
     # Deletes the message if the message contains a word from the list of filtered words
+    # Counts and stores the number of messages each user has sent to the server
+    # within a MongoDB database
+    # Guide: https://towardsdatascience.com/creating-a-discord-bot-from-scratch-and-connecting-to-mongodb-828ad1c7c22e
     @commands.Cog.listener()
     async def on_message(self, message):
+        query = {'_id': message.author.id}
+        # If the current id is different than what is already in the database
+        # then we will enter the user ID into the database
+        if collection.count_documents(query) == 0:
+            # Attibutes to our entry
+            post = {'_id': message.author.id, 'messages_sent': 1}
+            # Adds the post to the collection
+            collection.insert_one(post)
+        else:
+            # Finds the user that is already in the database
+            user = collection.find(query)
+            for result in user:
+                messages_sent = result['messages_sent']
+            # Increments the number of messages sent
+            messages_sent = messages_sent + 1
+            # Updates pre-existing entries if the user is already in the database
+            collection.update_one({'_id': message.author.id},
+                                  {'$set': {'messages_sent': messages_sent}})
+
+
         if message.author == self.bot.user:
             return
         for word in self.filtered_words_list:
